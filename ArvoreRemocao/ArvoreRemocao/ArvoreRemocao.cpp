@@ -214,15 +214,15 @@ NO* buscarElementoArvoreComPai(NO* no, int valor, NO*& pai)
 {
 	NO* atual = no;
 	pai = NULL;
-	while (atual != NULL) {
+	while (atual != NULL) {          /*significa q n tem onde procura mais*/
 		if (valor == atual->valor) {
-			return atual;
+			return atual;     
 		}
 		else {
 			pai = atual;
 
-			if (valor < atual->valor) {
-				atual = atual->esq;
+			if (valor < atual->valor) {    //antes de mudar os valores guardo quem é o pai
+				atual = atual->esq; // pontairo para o elemnto e pai do elemnto
 			}
 			else {
 				atual = atual->dir;
@@ -244,12 +244,46 @@ void removerElementoArvore(NO* no, int valor) {
 
 
 	// caso 1: sem filhos	
-	
+
+	if (atual->dir == NULL && atual->esq == NULL) {
+		if (pai == NULL) {
+			free(raiz);
+			raiz = NULL;
+			return;
+		}
+		if (pai->esq == atual)
+			pai->esq = NULL;
+		else
+			pai->dir = NULL;
+
+		free(atual);
+		return;
+	 }
 
 	// caso 2: um filho	
-	
+
+	NO* filho = NULL;
+	if (atual->dir == NULL && atual->esq != NULL)
+		filho = atual->esq;
+
+	else if (atual->dir != NULL && atual->esq == NULL)
+		filho = atual->dir;
+
+	if (pai->dir == atual) {
+		pai->dir = filho;
+		free(atual);
+
+		return;
+	}
+	else {
+		pai->esq = filho;
+		free(atual);
+
+		return;
+	}
 
 	// caso 3: dois filhos
+
 
 	// procura o elmento mais a esquerda da sub-arvore da direita
 	NO* sucessor = atual->dir;
