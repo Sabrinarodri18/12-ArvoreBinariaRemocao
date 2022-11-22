@@ -1,4 +1,5 @@
 # Arvores (remoção de  elemento)
+# sabrina.luz@fatec.sp.gov.br
 ---
 
 ## Objetivos
